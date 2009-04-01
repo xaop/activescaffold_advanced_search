@@ -1,0 +1,28 @@
+<% href = url_for(params_for(:action => :update_table, :escape => false).delete_if{|k,v| k == 'advanced_search'}) -%>
+<%= form_remote_tag :url => href,
+                    :method => :get,
+                    :before => "addActiveScaffoldPageToHistory('#{href}', '#{params[:controller]}')",
+                    :after => "$('#{loading_indicator_id(:action => :advanced_search, :id => params[:id])}').style.visibility = 'visible'; Form.disable('#{advanced_search_form_id}');",
+                    :complete => "$('#{loading_indicator_id(:action => :advanced_search, :id => params[:id])}').style.visibility = 'hidden'; Form.enable('#{advanced_search_form_id}');",
+                    :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')",
+                    :update => active_scaffold_content_id,
+                    :html => { :href => href, :id => advanced_search_form_id, :class => 'advanced_search' } %>
+  <br/>
+  <div class="as_label">Normal search:</div>
+  <div class="as_inputs"><input type="text" name="advanced_search" size="50" value="<%= params[:advanced_search] -%>" class="text-input" id="<%= advanced_search_input_id %>" autocompleted="off" /></div>
+  <div class="as_label">Advanced search:</div>
+  <div class="as_inputs">
+    <%= link_to_function "Add search criterion", 'asAddCriterion(this); ' %>
+  </div>
+  <%= submit_tag as_('Search'), :class => "submit" %>
+  <a href="javascript:void(0)" class="cancel" onclick="f = this.up('form'); f.reset(); f.onsubmit();"><%= as_('Reset') -%></a>
+  <%= loading_indicator_tag(:action => :advanced_search) %>
+</form>
+<div style="display: none; " id="as_template" class="as_criterion"><%= select_tag "as_field[]", options %><%= select_tag "as_matcher[]", '<option value="equals">EQUALS</option><option value="contains">CONTAINS</option><option value="starts">STARTS WITH</option><option value="ends">ENDS WITH</option>' %><%= text_field_tag "as_search[]", nil, :class => "text-input" %> <%= link_to_function "remove", "asRemoveCriterion(this); " %></div>
+
+<script type="text/javascript">
+//<![CDATA[
+  new TextFieldWithExample('<%= advanced_search_input_id %>', '<%= as_("Search Terms") %>');
+  Form.focusFirstElement('<%= advanced_search_form_id -%>');
+//]]>
+</script>

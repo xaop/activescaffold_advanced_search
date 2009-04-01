@@ -1,0 +1,11 @@
+.active-scaffold  .as_label {
+  font-weight: bold;
+}
+
+.active-scaffold  .as_inputs {
+  padding-left: 1em;
+}
+
+.active-scaffold  .as_criterion {
+  padding-left: 1em;
+}
