@@ -2,6 +2,8 @@ module ActiveScaffold::Actions
   
   module AdvancedSearch
     
+    include ActiveScaffold::Finder
+    
     def self.included(base)
       base.before_filter :advanced_search_authorized?, :only => :show_advanced_search
       base.before_filter :do_advanced_search
@@ -27,7 +29,7 @@ module ActiveScaffold::Actions
         columns = active_scaffold_config.advanced_search.columns
         like_pattern = active_scaffold_config.advanced_search.full_text_search? ? '%?%' : '?%'
         conds = self.active_scaffold_conditions
-        conds = merge_conditions(conds, ActiveScaffold::Finder.create_conditions_for_columns(@query.split(' '), columns, like_pattern)) unless @query.empty?
+        conds = merge_conditions(conds, self.class.create_conditions_for_columns(@query.split(' '), columns, like_pattern)) unless @query.empty?
         conds = merge_conditions(conds, ActiveScaffold::AdvancedFinder.create_conditions_for_columns(columns, fields, modes, values))
         self.active_scaffold_conditions = conds
         includes_for_search_columns = columns.collect{ |column| column.includes }.flatten.uniq.compact

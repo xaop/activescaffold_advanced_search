@@ -3,7 +3,6 @@ ActiveScaffold rescue throw "should have included ActiveScaffold plug in first. 
 
 Kernel.load 'actions/advanced_search.rb'
 Kernel.load 'config/advanced_search.rb'
-Kernel.load 'config/core.rb'
 Kernel.load 'helpers/view_helpers.rb'
 Kernel.load 'helpers/advanced_search_helpers.rb'
 Kernel.load 'advanced_finder.rb'
