@@ -32,10 +32,17 @@ end
 
 def create_model
   # Install model
-  system "script/generate model SavedAdvancedSearch name:string model_name:string query:text valid:boolean"
+  if Dir["db/migrate/*_create_saved_advanced_searches.rb"].empty?
+    system "script/generate model SavedAdvancedSearch name:string model_name:string query:text valid:boolean"
   
-  system "rake db:migrate"
-
+    system "rake db:migrate"
+  else
+    # In this case the model was already generated in the database, since we are
+    # unable to drop the table in the database in a reliable manner we have to assume it still exists
+    # so we do not create a migration, and we do not migrate
+    system "script/generate model --skip-migration SavedAdvancedSearch name:string model_name:string query:text valid:boolean"
+  end
+  
   puts "Model SavedAdvancedSearch should exist"
 end
 
