@@ -11,11 +11,12 @@ Kernel.load 'advanced_finder.rb'
 ## Run the install script, too, just to make sure
 ## But at least rescue the action in production
 ##
-begin
-  Kernel::load(File.join(File.dirname(__FILE__), 'install.rb'))
-rescue
-  raise $! unless RAILS_ENV == 'production'
-end
+#** DISABLED: this does not work when generating a model in install.rb, because this causes a loop
+#begin
+#  Kernel::load(File.join(File.dirname(__FILE__), 'install.rb'))
+#rescue
+#  raise $! unless RAILS_ENV == 'production'
+#end
 
 # Register our helper methods
 ActionView::Base.send(:include, ActiveScaffold::Helpers::AdvancedSearchHelpers)

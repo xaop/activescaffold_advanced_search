@@ -29,3 +29,15 @@ Dir.chdir(Dir.getwd.sub(/vendor.*/, '')) do
   end
 
 end
+
+def create_model
+  # Install model
+  system "script/generate model SavedAdvancedSearch name:string model_name:string query:text valid:boolean"
+  
+  system "rake db:migrate"
+
+  puts "Model SavedAdvancedSearch should exist"
+end
+
+puts "Creating model"
+create_model
