@@ -1,0 +1,1 @@
+WARNING: Does not work with Prototype 1.5.0 due to an error in how it serializes forms. Has been tested with 1.6.0.2.
