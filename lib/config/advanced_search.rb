@@ -29,7 +29,7 @@ module ActiveScaffold::Config
 
     def columns
       unless @columns
-        self.columns = @core.columns.collect { |c| c.name if c.searchable? && c.column && c.column.text? }.compact
+        self.columns = @core.columns.collect { |c| c.name if c.searchable? && c.column && (c.column.text? || (c.column.type == :integer) || (c.column.type == :boolean)) }.compact - [:id]
       end
       @columns
     end
@@ -37,6 +37,10 @@ module ActiveScaffold::Config
     def columns=(val)
       @columns = ActiveScaffold::DataStructures::ActionColumns.new(*val)
       @columns.action = self
+    end
+    
+    def column_objects
+      @column_objects ||= @core.columns.select { |c| self.columns.include?(c.name) }
     end
 
   end

@@ -12,13 +12,21 @@
   <div class="as_inputs"><input type="text" name="advanced_search" size="50" value="<%= params[:advanced_search] -%>" class="text-input" id="<%= advanced_search_input_id %>" autocompleted="off" /></div>
   <div class="as_label">Advanced search:</div>
   <div class="as_inputs">
-    <%= link_to_function "Add search criterion", 'asAddCriterion(this); ' %>
+    <%= link_to_function "Add search criterion", "asAddCriterion(this, #{type_map}); " %>
   </div>
   <%= submit_tag as_('Search'), :class => "submit" %>
-  <a href="javascript:void(0)" class="cancel" onclick="f = this.up('form'); f.reset(); f.onsubmit();"><%= as_('Reset') -%></a>
+  <a href="javascript:void(0)" class="cancel" onclick="f = this.up('form') ; var e ; while (f.down('.as_criterion')) { f.down('.as_criterion').remove(); }; f.reset(); f.onsubmit();"><%= as_('Reset') -%></a>
   <%= loading_indicator_tag(:action => :advanced_search) %>
 <% end %>
-<div style="display: none; " id="as_template" class="as_criterion"><%= select_tag "as_field[]", options %><%= select_tag "as_matcher[]", '<option value="equals">EQUALS</option><option value="contains">CONTAINS</option><option value="starts">STARTS WITH</option><option value="ends">ENDS WITH</option>' %><%= text_field_tag "as_search[]", nil, :class => "text-input" %> <%= link_to_function "remove", "asRemoveCriterion(this); " %></div>
+<div style="display: none; " id="as_template" class="as_criterion">
+  <%= select_tag "as_field[]", options, :class => "as_field" %><%= select_tag "as_negator[]", '<option value="does">DOES</option><option value="not">DOES NOT</option>' , :class => 'as_negator'%>
+  <%= select_tag "as_matcher[]", '<option value="equals">EQUAL</option><option value="contains">CONTAIN</option><option value="starts">START WITH</option><option value="ends">END WITH</option><option value="matches">MATCH</option>', :class => "as_matcher" %>
+  <%= text_field_tag "as_search[]", nil, :class => "text-input as_search" %>
+  <%= select_tag "as_b_matcher[]", '<option value="true">IS TRUE</option><option value="false">IS FALSE</option>', :class => "as_b_matcher" %>
+  <%= select_tag "as_i_matcher[]", '<option value="equals">=</option><option value="lt">&lt;</option><option value="gt">&gt;</option><option value="le">&le;</option><option value="ge">&ge;</option>', :class => "as_i_matcher" %>
+  <%= text_field_tag "as_i_search[]", nil, :class => "text-input as_i_search" %>
+  <%= link_to_function "remove", "asRemoveCriterion(this); " %>
+</div>
 
 <script type="text/javascript">
 //<![CDATA[
