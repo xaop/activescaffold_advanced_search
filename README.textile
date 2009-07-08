@@ -1,4 +1,4 @@
-h2. Activescaffold Advanced Search Plugin
+h2. Activescaffold Advanced Search Plugin (branch old_as for rails 1.2.6)
 
 p. Enables you search on specific fields:
 
