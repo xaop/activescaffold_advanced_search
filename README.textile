@@ -1,0 +1,15 @@
+h2. Activescaffold Advanced Search Plugin
+
+p. Enables you search on specific fields:
+
+* search on string, text, integer and boolean columns
+
+* only "AND" conditions...
+
+h4. TODO
+
+* search on date columns
+
+* grouping of conditions (AND / OR)
+
+h4. WARNING: Does not work with Prototype 1.5.0 due to an error in how it serializes forms. Has been tested with 1.6.0.2.
