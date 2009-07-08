@@ -13,7 +13,7 @@ module ActiveScaffold
       fields.zip(negators, modes, values, boolean_modes, integer_modes, integer_values).each do |f, n, m, v, bm, im, iv|
         if c = columns_hash[f]
           case c.column.type
-          when :string
+          when :string, :text
             search_sql = c.search_sql
             v = (v || '').downcase
             case m
