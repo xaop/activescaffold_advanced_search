@@ -6,6 +6,28 @@ p. Enables you search on specific fields:
 
 * only "AND" conditions...
 
+[[BR]]
+
+h4. Usage
+
+p. Add the following to your application.rb (or application_controller.rb for rails > 2.3)
+
+{{{
+
+ActiveScaffold.set_defaults do |conf|
+  conf.actions.exclude :search
+  conf.actions.add :advanced_search
+end
+
+}}}
+
+p. This will activate the advanced search plugin for all your controllers.
+[[BR]]
+Ofcourse, you can also do this only for a specific controller.
+
+[[BR]]
+[[BR]]
+
 h4. TODO
 
 * search on date columns
