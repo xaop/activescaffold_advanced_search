@@ -13,10 +13,10 @@ h4. Usage
 
 p. Add the following to your application.rb (or application_controller.rb for rails > 2.3)
 
-pre.ActiveScaffold.set_defaults do |conf|
-  conf.actions.exclude :search
-  conf.actions.add :advanced_search
-end
+pre.  ActiveScaffold.set_defaults do |conf|
+    conf.actions.exclude :search
+    conf.actions.add :advanced_search
+  end
 
 p. This will activate the advanced search plugin for all your controllers.
 [[BR]]
