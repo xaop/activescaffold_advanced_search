@@ -13,8 +13,7 @@ h4. Usage
 
 p. Add the following to your application.rb (or application_controller.rb for rails > 2.3)
 
-pre.
-ActiveScaffold.set_defaults do |conf|
+pre.ActiveScaffold.set_defaults do |conf|
   conf.actions.exclude :search
   conf.actions.add :advanced_search
 end
