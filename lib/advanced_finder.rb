@@ -19,22 +19,22 @@ module ActiveScaffold
             case m
             when "equals"
               if v.empty?
-                where_clause = "(#{search_sql} LIKE ? ESCAPE '!' OR #{search_sql} IS NULL)"
+                where_clause = "(UPPER(#{search_sql}) LIKE UPPER(?) ESCAPE '!' OR UPPER(#{search_sql}) IS NULL)"
               else
-                where_clause = "#{search_sql} LIKE ? ESCAPE '!'"
+                where_clause = "UPPER(#{search_sql}) LIKE UPPER(?) ESCAPE '!'"
               end
               tokens << v.gsub(/([_%!])/) { "!#{$1}" }
             when "contains"
-              where_clause = "#{search_sql} LIKE ? ESCAPE '!'"
+              where_clause = "UPPER(#{search_sql}) LIKE UPPER(?) ESCAPE '!'"
               tokens << "%#{v.gsub(/([_%!])/) { "!#{$1}" }}%"
             when "starts"
-              where_clause = "#{search_sql} LIKE ? ESCAPE '!'"
+              where_clause = "UPPER(#{search_sql}) LIKE UPPER(?) ESCAPE '!'"
               tokens << "#{v.gsub(/([_%!])/) { "!#{$1}" }}%"
             when "ends"
-              where_clause = "#{search_sql} LIKE ? ESCAPE '!'"
+              where_clause = "UPPER(#{search_sql}) LIKE UPPER(?) ESCAPE '!'"
               tokens << "%#{v.gsub(/([_%!])/) { "!#{$1}" }}"
             when "matches"
-              where_clause = "#{search_sql} LIKE ?"
+              where_clause = "UPPER(#{search_sql}) LIKE UPPER(?)"
               tokens << v
             else
               raise "not yet #{m}"
