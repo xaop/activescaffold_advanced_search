@@ -31,6 +31,7 @@ module ActiveScaffold::Actions
       boolean_modes = Array(params[:as_b_matcher] || [])
       integer_modes = Array(params[:as_i_matcher] || [])
       integer_values = Array(params[:as_i_search] || [])
+      group_boolean_modes = Array(params[:as_group_boolean] || [])
       
       unless @query.empty? && (fields.empty? || modes.empty? || values.empty?)
         columns = active_scaffold_config.advanced_search.columns
@@ -41,7 +42,7 @@ module ActiveScaffold::Actions
         else
           conds = merge_conditions(conds, ActiveScaffold::Finder.create_conditions_for_columns(@query.split(' '), columns.select { |c| c.column.text? }, like_pattern)) unless @query.empty?
         end
-        conds = merge_conditions(conds, ActiveScaffold::AdvancedFinder.create_conditions_for_columns(columns, fields, negators, modes, values, boolean_modes, integer_modes, integer_values))
+        conds = merge_conditions(conds, ActiveScaffold::AdvancedFinder.create_conditions_for_columns(columns, fields, negators, modes, values, boolean_modes, integer_modes, integer_values, group_boolean_modes))
         self.active_scaffold_conditions = conds
         includes_for_search_columns = columns.collect{ |column| column.includes }.flatten.uniq.compact
         self.active_scaffold_joins.concat includes_for_search_columns

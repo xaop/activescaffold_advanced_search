@@ -2,7 +2,7 @@ module ActiveScaffold
 
   module AdvancedFinder
     
-    def self.create_conditions_for_columns(columns, fields, negators, modes, values, boolean_modes, integer_modes, integer_values)
+    def self.create_conditions_for_columns(columns, fields, negators, modes, values, boolean_modes, integer_modes, integer_values, group_boolean_modes)
       columns_hash = columns.inject({}) { |h, c| h[c.name.to_s] = c ; h }
       
       # if there aren't any columns, then just return a nil condition
@@ -78,8 +78,18 @@ module ActiveScaffold
           end
         end
       end
+
+      # [where_clauses.join(" AND "), *tokens]
       
-      [where_clauses.join(" AND "), *tokens]
+      # group clauses by selected boolean attributes
+      clause = "#{where_clauses[0]}"
+      count = 1
+      while count < group_boolean_modes.size
+        clause += " #{group_boolean_modes[count]} #{where_clauses[count]}"
+        count += 1
+      end
+      [clause, *tokens]
+      
     end
 
   end

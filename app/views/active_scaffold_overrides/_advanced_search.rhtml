@@ -19,6 +19,11 @@
   <%= loading_indicator_tag(:action => :advanced_search) %>
 <% end %>
 <div style="display: none; " id="as_template" class="as_criterion">
+	
+	<div style="display: none;" >
+	  <%= select_tag "as_group_boolean[]", '<option value="AND">AND</option><option value="OR">OR</option>'%>
+	</div>
+	
   <%= select_tag "as_field[]", options, :class => "as_field" %><%= select_tag "as_negator[]", '<option value="does">DOES</option><option value="not">DOES NOT</option>' , :class => 'as_negator'%>
   <%= select_tag "as_matcher[]", '<option value="equals">EQUAL</option><option value="contains">CONTAIN</option><option value="starts">START WITH</option><option value="ends">END WITH</option><option value="matches">MATCH</option>', :class => "as_matcher" %>
   <%= text_field_tag "as_search[]", nil, :class => "text-input as_search" %>

@@ -4,6 +4,12 @@ function asAddCriterion(element, type_map) {
   fields.style.display = "block";
   element = $(element).up(".as_inputs");
   element.parentNode.insertBefore(fields, element);
+
+	// If more than one criterion display boolean field
+	if (element.previous('.as_criterion').previous('.as_criterion') != undefined) {
+		element.previous('.as_criterion').down().show();	
+	}
+
   var as_field = fields.down(".as_field");
   as_field.observe("change", function (event) { asUpdateSearchType(as_field, type_map); });
   asUpdateSearchType(as_field, type_map);
