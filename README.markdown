@@ -2,9 +2,8 @@
 
 Enables you search on specific fields:
 
-* search on string, text, integer and boolean columns
-* only "AND" conditions...
-
+* string, text, integer and boolean columns
+* multiple condtions: AND / OR
       
 ---------------
      
@@ -31,8 +30,7 @@ Ofcourse, you can also do this only for a specific controller.
 #### TODO
 
 * search on date columns
-* grouping of conditions (AND / OR)
-
+* grouping of AND / OR conditions
 
       
 ---------------
