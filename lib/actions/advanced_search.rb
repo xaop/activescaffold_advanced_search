@@ -45,7 +45,7 @@ module ActiveScaffold::Actions
         conds = merge_conditions(conds, ActiveScaffold::AdvancedFinder.create_conditions_for_columns(columns, fields, negators, modes, values, boolean_modes, integer_modes, integer_values, group_boolean_modes))
         self.active_scaffold_conditions = conds
         includes_for_search_columns = columns.collect{ |column| column.includes }.flatten.uniq.compact
-        self.active_scaffold_joins.concat includes_for_search_columns
+        self.active_scaffold_includes.concat includes_for_search_columns
       
         active_scaffold_config.list.user.page = nil
       end
